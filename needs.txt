@@ -1,0 +1,7 @@
+1- lista wszystkich kosztow / przychodow
+2- dodawanie kosztow / przychodow
+3- informacja ile wydalismy na dana kategorie
+4- ile zostalo
+5- wybor co chce zrobic
+
+

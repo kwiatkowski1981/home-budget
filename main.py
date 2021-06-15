@@ -1,16 +1,22 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from views import MainMenu
+from repositories import EntryRepository, CategoryRepository
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+class Application:
+    @staticmethod
+    def main():
+        menu = MainMenu()
+        menu.draw()
+
+        screen = menu.get_screen()
+        screen.set_repository('category', CategoryRepository)
+        screen.set_repository('entry', EntryRepository)
+        screen.draw()
+
+    def get_entry_repository(self):
+        pass
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    Application.main()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
