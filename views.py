@@ -22,7 +22,7 @@ class AddCost(AbstractView):
         print(AddCost.LABEL)
         title = input('Tytul: ')
         category_name = input('Kategoria: ')
-        amount = float(input('Wartosc'))
+        amount = float(input('Wartosc: '))
 
         category = self.repositories['category'].get_by_name(category_name)
         self.repositories['entry'].save(title, category, amount)
