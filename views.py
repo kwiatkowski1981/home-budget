@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from repositories import EntryRepository, CategoryRepository
 
 
 class AbstractView(ABC):
@@ -20,12 +19,12 @@ class AddCost(AbstractView):
 
     def draw(self):
         print(AddCost.LABEL)
-        title = input('Tytul: ')
+        name = input('Tytul: ')
         category_name = input('Kategoria: ')
         amount = float(input('Wartosc: '))
 
-        category = self.repositories['category'].get_by_name(category_name)
-        self.repositories['entry'].save(title, category, amount)
+        category_id, name = self.repositories['category'].get_by_name(category_name)
+        self.repositories['entry'].save(name, category_id, amount * -1)
 
 
 class ListCosts(AbstractView):

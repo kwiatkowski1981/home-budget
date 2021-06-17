@@ -1,10 +1,22 @@
+import sqlite3
 
 
 class EntryRepository:
-    def save(self, title, category, amount):
-        pass
+    def save(self, category_id, name, amount):
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                'INSERT INTO entry(`category_id`, `name`, `amount`) VALUES(?, ?, ?)', (
+                    category_id,
+                    name,
+                    amount
+                ))
+            connection.commit()
 
 
 class CategoryRepository:
     def get_by_name(self, name):
-        print(f'Pobieram kategorie po nazwie {name}')
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute('SELECT `id`, `name` FROM category WHERE `name`=?', (name,))
+            return cursor.fetchone()
