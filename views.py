@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from terminaltables import AsciiTable
 from exeptions import CategoryNotFound
 
 
@@ -40,6 +41,15 @@ class ListCosts(AbstractView):
 
     def draw(self):
         print(ListCosts.LABEL)
+        # oprion with terminaltables
+        rows = [
+            ['pozycja', 'data dodania', 'kwota', 'kategoria']
+        ]
+        for cost_id, created_at, amount, category in self.repositories['entry'].get_costs():
+            # print(f'{cost_id}, {created_at}, {amount}, {category}')
+            rows.append([cost_id, created_at, amount, category])
+        table = AsciiTable(rows)
+        print(table.table)
 
 
 class AddIncome(AbstractView):
