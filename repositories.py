@@ -13,6 +13,7 @@ class EntryRepository:
                 entry.id,
                 entry.created_at,
                 entry.amount,
+                entry.name,
                 category.name 
             FROM
                 entry

@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from terminaltables import AsciiTable
-from exeptions import CategoryNotFound
+# from exeptions import CategoryNotFound
 
 
 class AbstractView(ABC):
@@ -43,11 +43,11 @@ class ListCosts(AbstractView):
         print(ListCosts.LABEL)
         # oprion with terminaltables
         rows = [
-            ['pozycja', 'data dodania', 'kwota', 'kategoria']
+            ['pozycja', 'data dodania', 'kwota', 'na co', 'kategoria']
         ]
-        for cost_id, created_at, amount, category in self.repositories['entry'].get_costs():
+        for cost_id, created_at, amount, name, category in self.repositories['entry'].get_costs():
             # print(f'{cost_id}, {created_at}, {amount}, {category}')
-            rows.append([cost_id, created_at, amount, category])
+            rows.append([cost_id, created_at, amount, name, category])
         table = AsciiTable(rows)
         print(table.table)
 
