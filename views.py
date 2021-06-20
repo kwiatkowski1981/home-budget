@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from exeptions import CategoryNotFound
 
 
 class AbstractView(ABC):
@@ -20,10 +21,16 @@ class AddCost(AbstractView):
     def draw(self):
         print(AddCost.LABEL)
         name = input('Tytul: ')
-        category_name = input('Kategoria: ')
         amount = float(input('Wartosc: '))
+        found_category = False
 
-        category_id, _ = self.repositories['category'].get_by_name(category_name)
+        while not found_category:
+            try:
+                category_name = input('Kategoria: ')
+                category_id, _ = self.repositories['category'].get_by_name(category_name)
+                found_category = True
+            except TypeError:
+                found_category = False
         self.repositories['entry'].save(name, category_id, amount * -1)
 
 

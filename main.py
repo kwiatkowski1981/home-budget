@@ -1,6 +1,6 @@
 from views import MainMenu
+from exeptions import CategoryNotFound
 from repositories import EntryRepository, CategoryRepository
-
 
 class Application:
 
@@ -23,6 +23,11 @@ class Application:
 
 
 if __name__ == '__main__':
-    app = Application()
-    app.main()
+    try:
+        app = Application()
+        app.main()
+    except CategoryNotFound:
+        print('Nie udalo mi sie znalezc takiej kategorii.')
+
+
 
