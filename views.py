@@ -23,7 +23,7 @@ class AddCost(AbstractView):
         category_name = input('Kategoria: ')
         amount = float(input('Wartosc: '))
 
-        category_id, name = self.repositories['category'].get_by_name(category_name)
+        category_id, _ = self.repositories['category'].get_by_name(category_name)
         self.repositories['entry'].save(name, category_id, amount * -1)
 
 
