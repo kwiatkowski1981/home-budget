@@ -68,12 +68,21 @@ class ListIncomes(AbstractView):
         print(ListIncomes.LABEL)
 
 
+class Raport(AbstractView):
+    SHORTCUT = 'r'
+    LABEL = '(R)aporty'
+
+    def draw(self):
+        pass
+
+
 class MainMenu(AbstractView):
     OPTIONS = {
         AddCost.SHORTCUT: AddCost(),        # (D)odaj (K)oszt
         ListCosts.SHORTCUT: ListCosts(),      # (W)ypisz (K)oszta
         AddIncome.SHORTCUT: AddIncome(),      # (D)odaj (P)rzychod
         ListIncomes.SHORTCUT: ListIncomes(),    # (W)ypisz (P)rzychody
+        Raport.SHORTCUT: Raport()               # (R)aporty
     }
 
     def get_screen(self):
