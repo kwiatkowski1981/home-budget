@@ -34,8 +34,6 @@ class EntryRepository:
                 ))
             connection.commit()
 
-# todo access do DB is not working, need to figure it out!
-
 
 class CategoryRepository:
     def get_by_name(self, name):
@@ -43,3 +41,31 @@ class CategoryRepository:
             cursor = connection.cursor()
             cursor.execute('SELECT `id`, `name` FROM category WHERE `name`=?', (name,))
             return cursor.fetchone()
+
+
+class ReportRepository:
+    def get_saldo(self):
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                'SELECT COUNT(*) as quantity, SUM(amount) as saldo FROM entry'
+            )
+            return cursor.fetchone()
+
+    def get_saldo_by_category(self):
+        with sqlite3.connect('database.db') as connection:
+            cursor = connection.cursor()
+            cursor.execute(
+                '''
+                SELECT
+                    category.name,
+                    COUNT(*) as quantity,
+                    SUM(amount) as saldo
+                FROM
+                    entry
+                LEFT JOIN category ON entry.category_id = category.id 
+                GROUP BY category_id 
+                ORDER BY created_at DESC
+                '''
+            )
+            return cursor.fetchall()

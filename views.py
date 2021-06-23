@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from terminaltables import AsciiTable
-# from exeptions import CategoryNotFound
 
 
 class AbstractView(ABC):
@@ -68,21 +67,31 @@ class ListIncomes(AbstractView):
         print(ListIncomes.LABEL)
 
 
-class Raport(AbstractView):
+class Report(AbstractView):
     SHORTCUT = 'r'
     LABEL = '(R)aporty'
 
     def draw(self):
-        pass
+        print(Report.LABEL)
+        repository = self.repositories['report']
+        quantity, saldo = repository.get_saldo()
+        print(f'ilość operacji: {quantity}  saldo: {saldo}')
+
+        rows = [
+            ['nazwa kategorii', 'ilość operacji', 'suma']
+        ]
+        rows += repository.get_saldo_by_category()
+        table = AsciiTable(rows)
+        print(table.table)
 
 
 class MainMenu(AbstractView):
     OPTIONS = {
-        AddCost.SHORTCUT: AddCost(),        # (D)odaj (K)oszt
-        ListCosts.SHORTCUT: ListCosts(),      # (W)ypisz (K)oszta
-        AddIncome.SHORTCUT: AddIncome(),      # (D)odaj (P)rzychod
-        ListIncomes.SHORTCUT: ListIncomes(),    # (W)ypisz (P)rzychody
-        Raport.SHORTCUT: Raport()               # (R)aporty
+        AddCost.SHORTCUT: AddCost(),  # (D)odaj (K)oszt
+        ListCosts.SHORTCUT: ListCosts(),  # (W)ypisz (K)oszta
+        AddIncome.SHORTCUT: AddIncome(),  # (D)odaj (P)rzychod
+        ListIncomes.SHORTCUT: ListIncomes(),  # (W)ypisz (P)rzychody
+        Report.SHORTCUT: Report()  # (R)aporty
     }
 
     def get_screen(self):
@@ -96,5 +105,3 @@ class MainMenu(AbstractView):
         for shortcut, screen in MainMenu.OPTIONS.items():
             print(f' [{shortcut}] - {screen.LABEL}')
         print("\n")
-
-
