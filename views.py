@@ -80,7 +80,7 @@ class Report(AbstractView):
         rows = [
             ['nazwa kategorii', 'ilość operacji', 'suma']
         ]
-        rows += repository.get_saldo_by_category()
+        rows += repository.get_saldo_by_category()  # ta linijka nie dziala Kacprowi, dlaczego? lekcjaa 56 mod 8
         table = AsciiTable(rows)
         print(table.table)
 
